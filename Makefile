@@ -5,6 +5,7 @@ configure-rust:
 	rustup toolchain install nightly
 	rustup target add wasm32-unknown-unknown --toolchain nightly
 	rustup component add clippy
+	rustup component add rustfmt --toolchain nightly
 
 .PHONY: init
 init:
@@ -36,6 +37,7 @@ genesis:
 .PHONY: check
 check:
 	SKIP_WASM_BUILD=1 cargo check
+	SKIP_WASM_BUILD=1 cargo check --tests
 
 .PHONY: clippy
 clippy:

@@ -18,91 +18,91 @@ use primitives::{Balance, CurrencyId};
 /// - Query balance. Rest `input` bytes: `account_id`.
 /// - Transfer. Rest `input` bytes: `from`, `to`, `amount`.
 pub struct MultiCurrencyPrecompile<AccountId, AddressMapping, MultiCurrency>(
-	PhantomData<(AccountId, AddressMapping, MultiCurrency)>,
+    PhantomData<(AccountId, AddressMapping, MultiCurrency)>,
 );
 
 enum Action {
-	QueryTotalIssuance,
-	QueryBalance,
-	Transfer,
+    QueryTotalIssuance,
+    QueryBalance,
+    Transfer,
 }
 
 impl TryFrom<u8> for Action {
-	type Error = ();
+    type Error = ();
 
-	fn try_from(value: u8) -> Result<Self, Self::Error> {
-		match value {
-			0 => Ok(Action::QueryTotalIssuance),
-			1 => Ok(Action::QueryBalance),
-			2 => Ok(Action::Transfer),
-			_ => Err(()),
-		}
-	}
+    fn try_from(value: u8) -> Result<Self, Self::Error> {
+        match value {
+            0 => Ok(Action::QueryTotalIssuance),
+            1 => Ok(Action::QueryBalance),
+            2 => Ok(Action::Transfer),
+            _ => Err(()),
+        }
+    }
 }
 
 impl<AccountId, AddressMapping, MultiCurrency> Precompile
-	for MultiCurrencyPrecompile<AccountId, AddressMapping, MultiCurrency>
+    for MultiCurrencyPrecompile<AccountId, AddressMapping, MultiCurrency>
 where
-	AccountId: Debug + Clone,
-	AddressMapping: AddressMappingT<AccountId>,
-	MultiCurrency: MultiCurrencyT<AccountId, Balance = Balance, CurrencyId = CurrencyId>,
+    AccountId: Debug + Clone,
+    AddressMapping: AddressMappingT<AccountId>,
+    MultiCurrency: MultiCurrencyT<AccountId, Balance = Balance, CurrencyId = CurrencyId>,
 {
-	fn execute(
-		input: &[u8],
-		_target_gas: Option<u64>,
-		_context: &Context,
-	) -> result::Result<(ExitSucceed, Vec<u8>, u64), ExitError> {
-		//TODO: evaluate cost
+    fn execute(
+        input: &[u8],
+        _target_gas: Option<u64>,
+        _context: &Context,
+    ) -> result::Result<(ExitSucceed, Vec<u8>, u64), ExitError> {
+        //TODO: evaluate cost
 
-		log::debug!(target: "evm", "input: {:?}", input);
+        log::debug!(target: "evm", "input: {:?}", input);
 
-		let input = Input::<Action, AccountId, AddressMapping>::new(input);
+        let input = Input::<Action, AccountId, AddressMapping>::new(input);
 
-		let action = input.action()?;
-		let currency_id = input.currency_id_at(1)?;
+        let action = input.action()?;
+        let currency_id = input.currency_id_at(1)?;
 
-		log::debug!(target: "evm", "currency id: {:?}", currency_id);
+        log::debug!(target: "evm", "currency id: {:?}", currency_id);
 
-		match action {
-			Action::QueryTotalIssuance => {
-				let total_issuance = vec_u8_from_balance(MultiCurrency::total_issuance(currency_id));
-				log::debug!(target: "evm", "total issuance: {:?}", total_issuance);
+        match action {
+            Action::QueryTotalIssuance => {
+                let total_issuance = vec_u8_from_balance(MultiCurrency::total_issuance(currency_id));
+                log::debug!(target: "evm", "total issuance: {:?}", total_issuance);
 
-				Ok((ExitSucceed::Returned, total_issuance, 0))
-			}
-			Action::QueryBalance => {
-				let who = input.account_id_at(2)?;
-				log::debug!(target: "evm", "who: {:?}", who);
+                Ok((ExitSucceed::Returned, total_issuance, 0))
+            }
+            Action::QueryBalance => {
+                let who = input.account_id_at(2)?;
+                log::debug!(target: "evm", "who: {:?}", who);
 
-				let balance = vec_u8_from_balance(MultiCurrency::total_balance(currency_id, &who));
-				log::debug!(target: "evm", "balance: {:?}", balance);
+                let balance = vec_u8_from_balance(MultiCurrency::total_balance(currency_id, &who));
+                log::debug!(target: "evm", "balance: {:?}", balance);
 
-				Ok((ExitSucceed::Returned, balance, 0))
-			}
-			Action::Transfer => {
-				let from = input.account_id_at(2)?;
-				let to = input.account_id_at(3)?;
-				let amount = input.balance_at(4)?;
+                Ok((ExitSucceed::Returned, balance, 0))
+            }
+            Action::Transfer => {
+                let from = input.account_id_at(2)?;
+                let to = input.account_id_at(3)?;
+                let amount = input.balance_at(4)?;
 
-				log::debug!(target: "evm", "from: {:?}", from);
-				log::debug!(target: "evm", "to: {:?}", to);
-				log::debug!(target: "evm", "amount: {:?}", amount);
+                log::debug!(target: "evm", "from: {:?}", from);
+                log::debug!(target: "evm", "to: {:?}", to);
+                log::debug!(target: "evm", "amount: {:?}", amount);
 
-				MultiCurrency::transfer(currency_id, &from, &to, amount).map_err(|e| {
-					let err_msg: &str = e.into();
-					ExitError::Other(err_msg.into())
-				})?;
+                MultiCurrency::transfer(currency_id, &from, &to, amount).map_err(|e| {
+                    let err_msg: &str = e.into();
+                    ExitError::Other(err_msg.into())
+                })?;
 
-				log::debug!(target: "evm", "transfer success!");
+                log::debug!(target: "evm", "transfer success!");
 
-				Ok((ExitSucceed::Returned, vec![], 0))
-			}
-		}
-	}
+                Ok((ExitSucceed::Returned, vec![], 0))
+            }
+        }
+    }
 }
 
 fn vec_u8_from_balance(balance: Balance) -> Vec<u8> {
-	let mut be_bytes = [0u8; 32];
-	U256::from(balance).to_big_endian(&mut be_bytes[..]);
-	be_bytes.to_vec()
+    let mut be_bytes = [0u8; 32];
+    U256::from(balance).to_big_endian(&mut be_bytes[..]);
+    be_bytes.to_vec()
 }

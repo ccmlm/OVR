@@ -90,3 +90,11 @@ endif
 	cp assets/types.json fork/data/schema.json
 	cp assets/chain_spec_$(chain)_raw.json fork/data/genesis.json
 	cd fork && npm start && cd ..
+
+#####################################################################################################
+
+fmt:
+	cargo +nightly fmt
+
+lint: clippy
+	#

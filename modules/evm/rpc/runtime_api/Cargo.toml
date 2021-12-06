@@ -2,7 +2,7 @@
 name = "module-evm-rpc-runtime-api"
 version = "0.1.0"
 authors = ["Reef Developers"]
-edition = "2018"
+edition = "2021"
 
 [dependencies]
 sp-runtime = { git = "https://github.com/paritytech/substrate", default-features = false , branch = "polkadot-v0.9.10" }

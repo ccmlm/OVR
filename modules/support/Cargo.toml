@@ -2,7 +2,7 @@
 name = "module-support"
 version = "0.7.3"
 authors = ["Reef Developers"]
-edition = "2018"
+edition = "2021"
 
 [dependencies]
 impl-trait-for-tuples = "0.2.1"

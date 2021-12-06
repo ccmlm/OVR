@@ -13,39 +13,39 @@ use frame_support::weights::{constants::RocksDbWeight as DbWeight, Weight};
 
 /// Weight functions for evm.
 impl crate::WeightInfo for () {
-	fn transfer_maintainer() -> Weight {
-		(249_253_000 as Weight)
-			.saturating_add(DbWeight::get().reads(4 as Weight))
-			.saturating_add(DbWeight::get().writes(2 as Weight))
-	}
-	fn deploy() -> Weight {
-		(359_916_000 as Weight)
-			.saturating_add(DbWeight::get().reads(4 as Weight))
-			.saturating_add(DbWeight::get().writes(3 as Weight))
-	}
-	fn deploy_free() -> Weight {
-		(79_203_000 as Weight)
-			.saturating_add(DbWeight::get().reads(1 as Weight))
-			.saturating_add(DbWeight::get().writes(1 as Weight))
-	}
-	fn enable_contract_development() -> Weight {
-		(221_257_000 as Weight)
-			.saturating_add(DbWeight::get().reads(3 as Weight))
-			.saturating_add(DbWeight::get().writes(2 as Weight))
-	}
-	fn disable_contract_development() -> Weight {
-		(215_920_000 as Weight)
-			.saturating_add(DbWeight::get().reads(3 as Weight))
-			.saturating_add(DbWeight::get().writes(2 as Weight))
-	}
-	fn set_code() -> Weight {
-		(238_383_000 as Weight)
-			.saturating_add(DbWeight::get().reads(4 as Weight))
-			.saturating_add(DbWeight::get().writes(3 as Weight))
-	}
-	fn selfdestruct() -> Weight {
-		(544_511_000 as Weight)
-			.saturating_add(DbWeight::get().reads(7 as Weight))
-			.saturating_add(DbWeight::get().writes(5 as Weight))
-	}
+    fn transfer_maintainer() -> Weight {
+        (249_253_000 as Weight)
+            .saturating_add(DbWeight::get().reads(4 as Weight))
+            .saturating_add(DbWeight::get().writes(2 as Weight))
+    }
+    fn deploy() -> Weight {
+        (359_916_000 as Weight)
+            .saturating_add(DbWeight::get().reads(4 as Weight))
+            .saturating_add(DbWeight::get().writes(3 as Weight))
+    }
+    fn deploy_free() -> Weight {
+        (79_203_000 as Weight)
+            .saturating_add(DbWeight::get().reads(1 as Weight))
+            .saturating_add(DbWeight::get().writes(1 as Weight))
+    }
+    fn enable_contract_development() -> Weight {
+        (221_257_000 as Weight)
+            .saturating_add(DbWeight::get().reads(3 as Weight))
+            .saturating_add(DbWeight::get().writes(2 as Weight))
+    }
+    fn disable_contract_development() -> Weight {
+        (215_920_000 as Weight)
+            .saturating_add(DbWeight::get().reads(3 as Weight))
+            .saturating_add(DbWeight::get().writes(2 as Weight))
+    }
+    fn set_code() -> Weight {
+        (238_383_000 as Weight)
+            .saturating_add(DbWeight::get().reads(4 as Weight))
+            .saturating_add(DbWeight::get().writes(3 as Weight))
+    }
+    fn selfdestruct() -> Weight {
+        (544_511_000 as Weight)
+            .saturating_add(DbWeight::get().reads(7 as Weight))
+            .saturating_add(DbWeight::get().writes(5 as Weight))
+    }
 }

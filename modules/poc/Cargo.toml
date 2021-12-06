@@ -3,7 +3,7 @@ name = "module-poc"
 version = "0.1.0"
 authors = ["Reef Developers"]
 description = "Proof of Commitment module"
-edition = "2018"
+edition = "2021"
 
 [dependencies]
 serde = { version = "1.0.101", optional = true }

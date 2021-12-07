@@ -3,7 +3,7 @@
 use crate::*;
 use frame_benchmarking::{account, benchmarks, impl_benchmark_test_suite};
 use frame_system::RawOrigin;
-use primitives::{currency::REEF, time::DAYS};
+use primitives::{currency::OVR, time::DAYS};
 
 benchmarks! {
     where_clause { where BalanceOf<T>: From<u128> }
@@ -22,14 +22,14 @@ benchmarks! {
         for i in 0..1_000 {
             let voter: T::AccountId = account("voter", i, 0);
             let candidate: T::AccountId = account("candidate", i, 0);
-            T::Currency::deposit_creating(&voter, BalanceOf::<T>::from(100_001 * REEF));
-            T::Currency::deposit_creating(&candidate, BalanceOf::<T>::from(1_000_001 * REEF));
+            T::Currency::deposit_creating(&voter, BalanceOf::<T>::from(100_001 * OVR));
+            T::Currency::deposit_creating(&candidate, BalanceOf::<T>::from(1_000_001 * OVR));
 
             let _ = Pallet::<T>::start_candidacy(
                 RawOrigin::Signed(candidate.clone()).into()
             );
 
-            let amount: BalanceOf<T> = BalanceOf::<T>::from(100_000 * REEF);
+            let amount: BalanceOf<T> = BalanceOf::<T>::from(100_000 * OVR);
             let _ = Pallet::<T>::commit(
                 RawOrigin::Signed(voter.clone()).into(),
                 amount,
@@ -47,7 +47,7 @@ benchmarks! {
         let alice: T::AccountId = account("alice", 0, 0);
 
         // alice needs funds
-        let deposit: BalanceOf<T> = BalanceOf::<T>::from(1_000_001 * REEF);
+        let deposit: BalanceOf<T> = BalanceOf::<T>::from(1_000_001 * OVR);
         T::Currency::deposit_creating(&alice, deposit);
 
     }: _(RawOrigin::Signed(alice))
@@ -56,7 +56,7 @@ benchmarks! {
         let alice: T::AccountId = account("alice", 0, 0);
 
         // alice needs funds
-        let deposit: BalanceOf<T> = BalanceOf::<T>::from(1_000_001 * REEF);
+        let deposit: BalanceOf<T> = BalanceOf::<T>::from(1_000_001 * OVR);
         T::Currency::deposit_creating(&alice, deposit);
 
         let _ = Pallet::<T>::start_candidacy(
@@ -70,10 +70,10 @@ benchmarks! {
         let bob: T::AccountId = account("bob", 0, 0);
 
         // alice needs funds
-        let deposit: BalanceOf<T> = BalanceOf::<T>::from(100_001 * REEF);
+        let deposit: BalanceOf<T> = BalanceOf::<T>::from(100_001 * OVR);
         T::Currency::deposit_creating(&alice, deposit);
 
-        let amount: BalanceOf<T> = BalanceOf::<T>::from(100_000 * REEF);
+        let amount: BalanceOf<T> = BalanceOf::<T>::from(100_000 * OVR);
     }: _(RawOrigin::Signed(alice), amount, LockDuration::OneYear, bob)
 
 
@@ -82,10 +82,10 @@ benchmarks! {
         let bob: T::AccountId = account("bob", 0, 0);
 
         // alice needs funds
-        let deposit: BalanceOf<T> = BalanceOf::<T>::from(200_001 * REEF);
+        let deposit: BalanceOf<T> = BalanceOf::<T>::from(200_001 * OVR);
         T::Currency::deposit_creating(&alice, deposit);
 
-        let amount: BalanceOf<T> = BalanceOf::<T>::from(100_000 * REEF);
+        let amount: BalanceOf<T> = BalanceOf::<T>::from(100_000 * OVR);
 
         // she makes initial commitment
         let _ = Pallet::<T>::commit(
@@ -102,10 +102,10 @@ benchmarks! {
         let bob: T::AccountId = account("bob", 0, 0);
 
         // alice needs funds
-        let deposit: BalanceOf<T> = BalanceOf::<T>::from(200_001 * REEF);
+        let deposit: BalanceOf<T> = BalanceOf::<T>::from(200_001 * OVR);
         T::Currency::deposit_creating(&alice, deposit);
 
-        let amount: BalanceOf<T> = BalanceOf::<T>::from(100_000 * REEF);
+        let amount: BalanceOf<T> = BalanceOf::<T>::from(100_000 * OVR);
 
         // she makes initial commitment
         let _ = Pallet::<T>::commit(
@@ -122,10 +122,10 @@ benchmarks! {
         let bob: T::AccountId = account("bob", 0, 0);
 
         // alice needs funds
-        let deposit: BalanceOf<T> = BalanceOf::<T>::from(200_001 * REEF);
+        let deposit: BalanceOf<T> = BalanceOf::<T>::from(200_001 * OVR);
         T::Currency::deposit_creating(&alice, deposit);
 
-        let amount: BalanceOf<T> = BalanceOf::<T>::from(100_000 * REEF);
+        let amount: BalanceOf<T> = BalanceOf::<T>::from(100_000 * OVR);
 
         // she makes initial commitment
         let _ = Pallet::<T>::commit(
@@ -151,10 +151,10 @@ benchmarks! {
         let charlie: T::AccountId = account("charlie", 0, 0);
 
         // alice needs funds
-        let deposit: BalanceOf<T> = BalanceOf::<T>::from(200_001 * REEF);
+        let deposit: BalanceOf<T> = BalanceOf::<T>::from(200_001 * OVR);
         T::Currency::deposit_creating(&alice, deposit);
 
-        let amount: BalanceOf<T> = BalanceOf::<T>::from(100_000 * REEF);
+        let amount: BalanceOf<T> = BalanceOf::<T>::from(100_000 * OVR);
 
         // she makes initial commitment
         let _ = Pallet::<T>::commit(

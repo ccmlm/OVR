@@ -8,13 +8,13 @@ use frame_support::{
     weights::{DispatchClass, DispatchInfo, Pays},
 };
 use mock::{
-    AccountId, BlockWeights, Call, Currencies, ExtBuilder, Origin, Runtime, TransactionPayment, ALICE, BOB, REEF, RUSD,
+    AccountId, BlockWeights, Call, Currencies, ExtBuilder, Origin, Runtime, TransactionPayment, ALICE, BOB, OVR, OUSD,
 };
 use orml_traits::MultiCurrency;
 use sp_runtime::{testing::TestXt, traits::One};
 
 const CALL: &<Runtime as frame_system::Config>::Call =
-    &Call::Currencies(module_currencies::Call::transfer(BOB, RUSD, 12));
+    &Call::Currencies(module_currencies::Call::transfer(BOB, OUSD, 12));
 
 const CALL2: &<Runtime as frame_system::Config>::Call =
     &Call::Currencies(module_currencies::Call::transfer_native_currency(BOB, 12));
@@ -41,7 +41,7 @@ fn charges_fee() {
                 .priority,
             fee
         );
-        assert_eq!(Currencies::free_balance(REEF, &ALICE), (100000 - fee).into());
+        assert_eq!(Currencies::free_balance(OVR, &ALICE), (100000 - fee).into());
 
         let fee2 = 18 * 2 + 1000; // len * byte + weight
         assert_eq!(
@@ -53,7 +53,7 @@ fn charges_fee() {
         );
         use sp_runtime::traits::UniqueSaturatedInto;
         assert_eq!(
-            Currencies::free_balance(REEF, &ALICE),
+            Currencies::free_balance(OVR, &ALICE),
             (100000 - fee - fee2).unique_saturated_into()
         );
     });
@@ -66,7 +66,7 @@ fn charges_fee_when_pre_dispatch_and_native_currency_is_enough() {
         assert!(ChargeTransactionPayment::<Runtime>::from(0)
             .pre_dispatch(&ALICE, CALL, &INFO, 23)
             .is_ok());
-        assert_eq!(Currencies::free_balance(REEF, &ALICE), 100000 - fee);
+        assert_eq!(Currencies::free_balance(OVR, &ALICE), 100000 - fee);
     });
 }
 
@@ -77,20 +77,20 @@ fn refund_fee_according_to_actual_when_post_dispatch_and_native_currency_is_enou
         let pre = ChargeTransactionPayment::<Runtime>::from(0)
             .pre_dispatch(&ALICE, CALL, &INFO, 23)
             .unwrap();
-        assert_eq!(Currencies::free_balance(REEF, &ALICE), 100000 - fee);
+        assert_eq!(Currencies::free_balance(OVR, &ALICE), 100000 - fee);
 
         let refund = 200; // 1000 - 800
         assert!(ChargeTransactionPayment::<Runtime>::post_dispatch(pre, &INFO, &POST_INFO, 23, &Ok(())).is_ok());
-        assert_eq!(Currencies::free_balance(REEF, &ALICE), 100000 - fee + refund);
+        assert_eq!(Currencies::free_balance(OVR, &ALICE), 100000 - fee + refund);
     });
 }
 
 #[test]
 fn charges_fee_when_validate_and_native_is_not_enough() {
     ExtBuilder::default().build().execute_with(|| {
-        assert_ok!(<Currencies as MultiCurrency<_>>::transfer(RUSD, &ALICE, &BOB, 1000));
-        assert_eq!(<Currencies as MultiCurrency<_>>::free_balance(REEF, &BOB), 0);
-        assert_eq!(<Currencies as MultiCurrency<_>>::free_balance(RUSD, &BOB), 1000);
+        assert_ok!(<Currencies as MultiCurrency<_>>::transfer(OUSD, &ALICE, &BOB, 1000));
+        assert_eq!(<Currencies as MultiCurrency<_>>::free_balance(OVR, &BOB), 0);
+        assert_eq!(<Currencies as MultiCurrency<_>>::free_balance(OUSD, &BOB), 1000);
 
         let _fee = 500 * 2 + 1000; // len * byte + weight
         assert_err!(
@@ -101,13 +101,13 @@ fn charges_fee_when_validate_and_native_is_not_enough() {
         // // add liquidity to DEX
         // assert_ok!(DEXModule::add_liquidity(
         // 	Origin::signed(ALICE),
-        // 	REEF,
-        // 	RUSD,
+        // 	OVR,
+        // 	OUSD,
         // 	10000,
         // 	1000,
         // 	false
         // ));
-        // assert_eq!(DEXModule::get_liquidity_pool(REEF, RUSD), (10000, 1000));
+        // assert_eq!(DEXModule::get_liquidity_pool(OVR, OUSD), (10000, 1000));
 
         // let fee = 500 * 2 + 1000; // len * byte + weight
         // assert_eq!(
@@ -118,9 +118,9 @@ fn charges_fee_when_validate_and_native_is_not_enough() {
         // 	fee
         // );
 
-        // assert_eq!(Currencies::free_balance(REEF, &BOB), 0);
-        // assert_eq!(Currencies::free_balance(RUSD, &BOB), 749);
-        // assert_eq!(DEXModule::get_liquidity_pool(REEF, RUSD), (10000 - 2000,
+        // assert_eq!(Currencies::free_balance(OVR, &BOB), 0);
+        // assert_eq!(Currencies::free_balance(OUSD, &BOB), 749);
+        // assert_eq!(DEXModule::get_liquidity_pool(OVR, OUSD), (10000 - 2000,
         // 1251));
     });
 }
@@ -131,9 +131,9 @@ fn set_default_fee_token_work() {
         assert_eq!(TransactionPayment::default_fee_currency_id(&ALICE), None);
         assert_ok!(TransactionPayment::set_default_fee_token(
             Origin::signed(ALICE),
-            Some(RUSD)
+            Some(OUSD)
         ));
-        assert_eq!(TransactionPayment::default_fee_currency_id(&ALICE), Some(RUSD));
+        assert_eq!(TransactionPayment::default_fee_currency_id(&ALICE), Some(OUSD));
         assert_ok!(TransactionPayment::set_default_fee_token(Origin::signed(ALICE), None));
         assert_eq!(TransactionPayment::default_fee_currency_id(&ALICE), None);
     });

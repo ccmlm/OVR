@@ -87,7 +87,7 @@ impl orml_tokens::Config for Runtime {
 }
 
 parameter_types! {
-    pub const GetNativeCurrencyId: CurrencyId = CurrencyId::Token(TokenSymbol::REEF);
+    pub const GetNativeCurrencyId: CurrencyId = CurrencyId::Token(TokenSymbol::OVR);
 }
 
 impl orml_currencies::Config for Runtime {

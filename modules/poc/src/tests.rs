@@ -202,7 +202,7 @@ fn candidacy() {
     new_test_ext().execute_with(|| {
         let alice = 0 as u64;
 
-        // alice starts candidacy and bonds 250k REEF
+        // alice starts candidacy and bonds 250k OVR
         assert_ok!(Poc::start_candidacy(Origin::signed(alice)));
         assert_eq!(Balances::free_balance(&alice), 750_000 as u64);
         assert_eq!(Balances::reserved_balance(&alice), 250_000 as u64);

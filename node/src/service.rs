@@ -1,7 +1,7 @@
 //! Service and ServiceFactory implementation. Specialized wrapper over
 //! substrate service.
 
-use reef_runtime::{self, opaque::Block, RuntimeApi};
+use ovr_runtime::{self, opaque::Block, RuntimeApi};
 use sc_client_api::{ExecutorProvider, RemoteBackend};
 use sc_executor::native_executor_instance;
 pub use sc_executor::NativeExecutor;
@@ -17,8 +17,8 @@ use sc_finality_grandpa::FinalityProofProvider;
 // Our native executor instance.
 native_executor_instance!(
     pub Executor,
-    reef_runtime::api::dispatch,
-    reef_runtime::native_version,
+    ovr_runtime::api::dispatch,
+    ovr_runtime::native_version,
     frame_benchmarking::benchmarking::HostFunctions,
 );
 

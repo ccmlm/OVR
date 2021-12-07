@@ -1,12 +1,12 @@
-## Reef Chain
-Reef chain is written in [Rust](https://www.rust-lang.org/). A basic familiarity with Rust tooling is required.
+## Ovr Chain
+Ovr chain is written in [Rust](https://www.rust-lang.org/). A basic familiarity with Rust tooling is required.
 
-To learn more about Reef chain, please refer to **[Documentation](https://docs.reef.finance/)**.
+To learn more about Ovr chain, please refer to **[Documentation](https://docs.ovr.finance/)**.
 
 ### Clone
 To clone the repo with its submodules run:
 ```bash
-git clone --recursive https://github.com/reef-defi/reef-chain
+git clone --recursive https://github.com/ovr-defi/ovr-chain
 ```
 
 ### Rust Setup
@@ -44,19 +44,19 @@ make build
 This command will start the single-node development chain with persistent state:
 
 ```bash
-./target/release/reef-node --dev
+./target/release/ovrd --dev
 ```
 
 Purge the development chain's state:
 
 ```bash
-./target/release/reef-node purge-chain --dev
+./target/release/ovrd purge-chain --dev
 ```
 
 Start the development chain with detailed logging:
 
 ```bash
-RUST_LOG=debug RUST_BACKTRACE=1 ./target/release/reef-node -lruntime=debug --dev
+RUST_LOG=debug RUST_BACKTRACE=1 ./target/release/ovrd -lruntime=debug --dev
 ```
 
 ### Run tests
@@ -79,7 +79,7 @@ cargo test -p module-poc --all-features
 
 Run the module benchmarks and generate the weights file:
 ```
-./target/release/reef-node benchmark \
+./target/release/ovrd benchmark \
     --chain=dev \
     --steps=50 \
     --repeat=20 \
@@ -102,7 +102,7 @@ make debug
 Once the project has been built, the following command can be used to explore all parameters and subcommands:
 
 ```bash
-./target/release/reef-node -h
+./target/release/ovrd -h
 ```
 
 ### Release builds
@@ -129,7 +129,7 @@ Build the wasm runtime with:
 make wasm
 ```
 
-### Fork reef-chain
+### Fork ovr-chain
 
 You can create a fork of a live chain (testnet / mainnet) for development purposes.
 

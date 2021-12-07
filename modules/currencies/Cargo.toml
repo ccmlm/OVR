@@ -1,7 +1,7 @@
 [package]
 name = "module-currencies"
 version = "0.7.3"
-authors = ["Reef Developers"]
+authors = ["Ovr Developers"]
 edition = "2021"
 
 [dependencies]
@@ -21,7 +21,7 @@ module-evm-bridge = { path = "../evm-bridge", default-features = false }
 orml-traits = { path = "../../orml/traits", default-features = false }
 orml-utilities = { path = "../../orml/utilities", default-features = false }
 
-primitives = { package = "reef-primitives", path = "../../primitives", default-features = false }
+primitives = { package = "ovr-primitives", path = "../../primitives", default-features = false }
 support = { package = "module-support", path = "../support", default-features = false }
 
 [dev-dependencies]

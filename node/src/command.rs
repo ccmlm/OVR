@@ -17,13 +17,13 @@
 
 use crate::cli::{Cli, Subcommand};
 use crate::{chain_spec, service};
-use reef_runtime::Block;
+use ovr_runtime::Block;
 use sc_cli::{ChainSpec, Role, RuntimeVersion, SubstrateCli};
 use sc_service::PartialComponents;
 
 impl SubstrateCli for Cli {
     fn impl_name() -> String {
-        "Reef Chain Node".into()
+        "Ovr Chain Node".into()
     }
 
     fn impl_version() -> String {
@@ -39,7 +39,7 @@ impl SubstrateCli for Cli {
     }
 
     fn support_url() -> String {
-        "docs.reef.finance".into()
+        "docs.ovr.finance".into()
     }
 
     fn copyright_start_year() -> i32 {
@@ -59,7 +59,7 @@ impl SubstrateCli for Cli {
     }
 
     fn native_runtime_version(_: &Box<dyn ChainSpec>) -> &'static RuntimeVersion {
-        &reef_runtime::VERSION
+        &ovr_runtime::VERSION
     }
 }
 

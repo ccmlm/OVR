@@ -95,11 +95,11 @@ impl pallet_balances::Config for Test {
     type ReserveIdentifier = [u8; 8];
 }
 
-pub const REEF: CurrencyId = CurrencyId::Token(TokenSymbol::REEF);
-pub const RUSD: CurrencyId = CurrencyId::Token(TokenSymbol::RUSD);
+pub const OVR: CurrencyId = CurrencyId::Token(TokenSymbol::OVR);
+pub const OUSD: CurrencyId = CurrencyId::Token(TokenSymbol::OUSD);
 
 parameter_types! {
-    pub const GetNativeCurrencyId: CurrencyId = REEF;
+    pub const GetNativeCurrencyId: CurrencyId = OVR;
 }
 
 impl module_currencies::Config for Test {
@@ -117,8 +117,8 @@ impl module_evm_bridge::Config for Test {
 
 parameter_types! {
     pub const TransactionByteFee: Balance = 10;
-    pub const GetStableCurrencyId: CurrencyId = CurrencyId::Token(TokenSymbol::RUSD);
-    pub AllNonNativeCurrencyIds: Vec<CurrencyId> = vec![CurrencyId::Token(TokenSymbol::RUSD)];
+    pub const GetStableCurrencyId: CurrencyId = CurrencyId::Token(TokenSymbol::OUSD);
+    pub AllNonNativeCurrencyIds: Vec<CurrencyId> = vec![CurrencyId::Token(TokenSymbol::OUSD)];
 }
 
 impl module_transaction_payment::Config for Test {
@@ -298,7 +298,7 @@ pub fn evm_genesis() -> BTreeMap<H160, module_evm::GenesisAccount<Balance, u64>>
 }
 
 pub const INITIAL_BALANCE: Balance = 1_000_000_000_000;
-pub const REEF_ERC20_ADDRESS: &str = "0x0000000000000000000000000000000001000000";
+pub const OVR_ERC20_ADDRESS: &str = "0x0000000000000000000000000000000001000000";
 
 type UncheckedExtrinsic = frame_system::mocking::MockUncheckedExtrinsic<Test>;
 type Block = frame_system::mocking::MockBlock<Test>;
@@ -366,15 +366,15 @@ pub fn new_test_ext() -> sp_io::TestExternalities {
         assert_ok!(Currencies::update_balance(
             Origin::root(),
             ALICE,
-            REEF,
+            OVR,
             1_000_000_000_000
         ));
-        assert_ok!(Currencies::update_balance(Origin::root(), ALICE, RUSD, 1_000_000_000));
+        assert_ok!(Currencies::update_balance(Origin::root(), ALICE, OUSD, 1_000_000_000));
 
         assert_ok!(Currencies::update_balance(
             Origin::root(),
             MockAddressMapping::get_account_id(&alice()),
-            RUSD,
+            OUSD,
             1_000
         ));
     });

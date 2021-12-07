@@ -11,6 +11,6 @@ pub fn set_balance(currency_id: CurrencyId, who: &AccountId, balance: Balance) {
     );
 }
 
-pub fn set_reef_balance(who: &AccountId, balance: Balance) {
-    set_balance(CurrencyId::Token(TokenSymbol::REEF), who, balance)
+pub fn set_ovr_balance(who: &AccountId, balance: Balance) {
+    set_balance(CurrencyId::Token(TokenSymbol::OVR), who, balance)
 }

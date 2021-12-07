@@ -26,7 +26,7 @@ mod tests;
 pub const SYSTEM_CONTRACT_ADDRESS_PREFIX: [u8; 11] = [0u8; 11];
 /// Ethereum precompiles
 /// 0 - 0x400
-/// Reef precompiles
+/// Ovr precompiles
 /// 0x400 - 0x800
 pub const PRECOMPILE_ADDRESS_START: u64 = 0x400;
 /// Predeployed system contracts
@@ -46,9 +46,9 @@ pub mod currency {
     pub const DOLLARS: Balance = 1_000_000_000_000_000_000;
     pub const CENTS: Balance = DOLLARS / 100;
 
-    pub const REEF: Balance = DOLLARS;
-    pub const MILLI_REEF: Balance = REEF / 1_000;
-    pub const MICRO_REEF: Balance = REEF / 1_000_000;
+    pub const OVR: Balance = DOLLARS;
+    pub const MILLI_OVR: Balance = OVR / 1_000;
+    pub const MICRO_OVR: Balance = OVR / 1_000_000;
 }
 
 /// Time and blocks.
@@ -131,8 +131,8 @@ pub use sp_runtime::OpaqueExtrinsic as UncheckedExtrinsic;
 #[derive(Encode, Decode, Eq, PartialEq, Copy, Clone, RuntimeDebug, PartialOrd, Ord)]
 #[cfg_attr(feature = "std", derive(Serialize, Deserialize))]
 pub enum TokenSymbol {
-    REEF = 0,
-    RUSD = 1,
+    OVR = 0,
+    OUSD = 1,
 }
 
 impl TryFrom<u8> for TokenSymbol {
@@ -140,8 +140,8 @@ impl TryFrom<u8> for TokenSymbol {
 
     fn try_from(v: u8) -> Result<Self, Self::Error> {
         match v {
-            0 => Ok(TokenSymbol::REEF),
-            1 => Ok(TokenSymbol::RUSD),
+            0 => Ok(TokenSymbol::OVR),
+            1 => Ok(TokenSymbol::OUSD),
             _ => Err(()),
         }
     }

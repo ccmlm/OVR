@@ -3,7 +3,7 @@ use super::*;
 use crate::precompile::{
     mock::{
         alice, bob, get_task_id, new_test_ext, run_to_block, Balances, Event as TestEvent, ScheduleCallPrecompile,
-        System, Test, REEF_ERC20_ADDRESS,
+        System, Test, OVR_ERC20_ADDRESS,
     },
     schedule_call::TaskInfo,
 };
@@ -96,7 +96,7 @@ fn schedule_call_precompile_should_work() {
         // from
         U256::from(alice().as_bytes()).to_big_endian(&mut input[2 * 32..3 * 32]);
         // target
-        U256::from(REEF_ERC20_ADDRESS).to_big_endian(&mut input[3 * 32..4 * 32]);
+        U256::from(OVR_ERC20_ADDRESS).to_big_endian(&mut input[3 * 32..4 * 32]);
         // value
         U256::from(0).to_big_endian(&mut input[4 * 32..5 * 32]);
         // gas_limit
@@ -223,7 +223,7 @@ fn schedule_call_precompile_should_handle_invalid_input() {
         // from
         U256::from(alice().as_bytes()).to_big_endian(&mut input[2 * 32..3 * 32]);
         // target
-        U256::from(REEF_ERC20_ADDRESS).to_big_endian(&mut input[3 * 32..4 * 32]);
+        U256::from(OVR_ERC20_ADDRESS).to_big_endian(&mut input[3 * 32..4 * 32]);
         // value
         U256::from(0).to_big_endian(&mut input[4 * 32..5 * 32]);
         // gas_limit

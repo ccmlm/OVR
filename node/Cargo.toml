@@ -1,16 +1,16 @@
 [package]
-authors = ['Reef Finance <https://reef.finance>']
+authors = ['Ovr Finance <https://ovr.finance>']
 build = 'build.rs'
-description = 'Reef Substrate Node'
+description = 'Ovr Substrate Node'
 edition = '2018'
-homepage = 'https://reef.finance'
+homepage = 'https://ovr.finance'
 license = 'Unlicense'
-name = 'reef-node'
-repository = 'https://github.com/reef-defi/reef-chain'
+name = 'ovrd'
+repository = 'https://github.com/ovr-defi/ovr-chain'
 version = '4.0.0'
 
 [[bin]]
-name = 'reef-node'
+name = 'ovrd'
 
 [package.metadata.docs.rs]
 targets = ['x86_64-unknown-linux-gnu']
@@ -73,14 +73,14 @@ module-evm = { path = "../modules/evm" }
 module-evm-rpc-runtime-api = { path = "../modules/evm/rpc/runtime_api" }
 evm-rpc = { path = "../modules/evm/rpc" }
 
-reef-primitives = { path = "../primitives" }
+ovr-primitives = { path = "../primitives" }
 
 # runtime
-reef-runtime = { path = '../runtime', version = '4.0.0' }
+ovr-runtime = { path = '../runtime', version = '4.0.0' }
 
 [features]
 default = []
-runtime-benchmarks = ['reef-runtime/runtime-benchmarks', 'node-runtime/runtime-benchmarks']
+runtime-benchmarks = ['ovr-runtime/runtime-benchmarks', 'node-runtime/runtime-benchmarks']
 with-ethereum-compatibility = [
-	"reef-runtime/with-ethereum-compatibility"
+	"ovr-runtime/with-ethereum-compatibility"
 ]

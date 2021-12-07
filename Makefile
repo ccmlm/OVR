@@ -100,3 +100,9 @@ fmt:
 
 lint: clippy
 	#
+
+clean:
+	cargo clean
+
+cleanall: clean
+	git clean -fdx

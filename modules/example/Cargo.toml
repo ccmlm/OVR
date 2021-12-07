@@ -1,8 +1,8 @@
 [package]
 name = "module-example"
 version = "0.7.3"
-authors = ["Reef Developers"]
-edition = "2018"
+authors = ["Ovr Developers"]
+edition = "2021"
 
 [dependencies]
 serde = { version = "1.0.101", optional = true }

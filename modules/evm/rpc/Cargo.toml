@@ -1,8 +1,8 @@
 [package]
 name = "evm-rpc"
 version = "0.1.0"
-authors = ["Reef Developers"]
-edition = "2018"
+authors = ["Ovr Developers"]
+edition = "2021"
 
 [dependencies]
 jsonrpc-core = "15.0.0"

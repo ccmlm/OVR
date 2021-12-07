@@ -1,11 +1,11 @@
 {
-  "name": "Reef Mainnet",
-  "id": "reef_mainnet",
+  "name": "Ovr Mainnet",
+  "id": "ovr_mainnet",
   "chainType": "Live",
   "bootNodes": [
-    "/dns/bootnode.reefscan.com/tcp/30333/p2p/12D3KooWFHSc9cUcyNtavUkLg4VBAeBnYNgy713BnovUa9WNY5pp",
-    "/dns/bootnode.reef.finance/tcp/30333/p2p/12D3KooWAQqcXvcvt4eVEgogpDLAdGWgR5bY1drew44We6FfJAYq",
-    "/dns/bootnode.reef-chain.com/tcp/30333/p2p/12D3KooWCT7rnUmEK7anTp7svwr4GTs6k3XXnSjmgTcNvdzWzgWU"
+    "/dns/bootnode.ovrscan.com/tcp/30333/p2p/12D3KooWFHSc9cUcyNtavUkLg4VBAeBnYNgy713BnovUa9WNY5pp",
+    "/dns/bootnode.ovr.finance/tcp/30333/p2p/12D3KooWAQqcXvcvt4eVEgogpDLAdGWgR5bY1drew44We6FfJAYq",
+    "/dns/bootnode.ovr-chain.com/tcp/30333/p2p/12D3KooWCT7rnUmEK7anTp7svwr4GTs6k3XXnSjmgTcNvdzWzgWU"
   ],
   "telemetryEndpoints": [
     [
@@ -13,11 +13,11 @@
       0
     ]
   ],
-  "protocolId": "reef_mainnet",
+  "protocolId": "ovr_mainnet",
   "properties": {
     "ss58format": 42,
     "tokenDecimals": 18,
-    "tokenSymbol": "REEF"
+    "tokenSymbol": "OVR"
   },
   "forkBlocks": null,
   "badBlocks": null,

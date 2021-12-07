@@ -9,5 +9,5 @@ RUN make release
 
 FROM debian:buster
 
-COPY --from=build /build/target/release/reef-node /usr/local/bin
-ENTRYPOINT ["reef-node"]
+COPY --from=build /build/target/release/ovrd /usr/local/bin
+ENTRYPOINT ["ovrd"]

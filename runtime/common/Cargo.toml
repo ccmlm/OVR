@@ -1,8 +1,8 @@
 [package]
 name = "runtime-common"
 version = "0.7.3"
-authors = ["Reef Developers"]
-edition = "2018"
+authors = ["Ovr Developers"]
+edition = "2021"
 
 [dependencies]
 static_assertions = "1.1.0"
@@ -22,7 +22,7 @@ orml-traits = { path = "../../orml/traits", default-features = false }
 
 module-support = { path = "../../modules/support", default-features = false }
 module-transaction-payment = { path = "../../modules/transaction_payment", default-features = false }
-primitives = { package = "reef-primitives", path = "../../primitives", default-features = false }
+primitives = { package = "ovr-primitives", path = "../../primitives", default-features = false }
 
 [dev-dependencies]
 serde_json = "1.0.41"

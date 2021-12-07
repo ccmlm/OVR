@@ -1,8 +1,8 @@
 [package]
 name = "module-evm-bridge"
 version = "0.7.3"
-authors = ["Reef Developers"]
-edition = "2018"
+authors = ["Ovr Developers"]
+edition = "2021"
 
 [package.metadata.docs.rs]
 targets = ["x86_64-unknown-linux-gnu"]
@@ -20,7 +20,7 @@ primitive-types = { version = "0.10", default-features = false, features = ["rlp
 sha3 = { version = "0.8", default-features = false }
 impl-trait-for-tuples = "0.2.1"
 ethereum-types = { version = "0.12.0", default-features = false }
-primitives = { package = "reef-primitives", path = "../../primitives", default-features = false }
+primitives = { package = "ovr-primitives", path = "../../primitives", default-features = false }
 support = { package = "module-support", path = "../support", default-features = false }
 module-evm = { path = "../evm", default-features = false }
 hex-literal = { version = "0.3.1" }

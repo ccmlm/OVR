@@ -1,9 +1,9 @@
 [package]
 name = "module-poc"
 version = "0.1.0"
-authors = ["Reef Developers"]
+authors = ["Ovr Developers"]
 description = "Proof of Commitment module"
-edition = "2018"
+edition = "2021"
 
 [dependencies]
 serde = { version = "1.0.101", optional = true }
@@ -17,7 +17,7 @@ frame-benchmarking = { git = "https://github.com/paritytech/substrate", default-
 
 pallet-collective = { git = "https://github.com/paritytech/substrate", default-features = false , branch = "polkadot-v0.9.10" }
 
-primitives = { package = "reef-primitives", path = "../../primitives", default-features = false }
+primitives = { package = "ovr-primitives", path = "../../primitives", default-features = false }
 
 [dev-dependencies]
 pallet-balances = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.10" }

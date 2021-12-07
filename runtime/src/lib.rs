@@ -87,7 +87,7 @@ mod benchmarking;
 parameter_types! {
     pub BurnAccount: AccountId = AccountId::from([0u8; 32]);
     pub const SevenDays: BlockNumber = 7 * DAYS;
-    // pub TreasuryModuleAccount: AccountId = ReefTreasuryModuleId::get().into_account();
+    // pub TreasuryModuleAccount: AccountId = OvrTreasuryModuleId::get().into_account();
 }
 
 pub fn get_all_module_accounts() -> Vec<AccountId> {
@@ -175,7 +175,7 @@ pub mod opaque {
 
 /// Fee-related
 pub mod fee {
-    use super::{Balance, MILLI_REEF};
+    use super::{Balance, MILLI_OVR};
     use frame_support::weights::{
         constants::ExtrinsicBaseWeight, WeightToFeeCoefficient, WeightToFeeCoefficients, WeightToFeePolynomial,
     };
@@ -198,7 +198,7 @@ pub mod fee {
     impl WeightToFeePolynomial for WeightToFee {
         type Balance = Balance;
         fn polynomial() -> WeightToFeeCoefficients<Self::Balance> {
-            let p = MILLI_REEF;
+            let p = MILLI_OVR;
             let q = Balance::from(ExtrinsicBaseWeight::get()); // 125_000_000
             smallvec![WeightToFeeCoefficient {
                 degree: 1,
@@ -211,8 +211,8 @@ pub mod fee {
 }
 
 pub const VERSION: RuntimeVersion = RuntimeVersion {
-    spec_name: create_runtime_str!("reef"),
-    impl_name: create_runtime_str!("reef"),
+    spec_name: create_runtime_str!("ovr"),
+    impl_name: create_runtime_str!("ovr"),
     authoring_version: 1,
     spec_version: 9,
     impl_version: 9,
@@ -450,9 +450,9 @@ impl pallet_im_online::Config for Runtime {
 }
 
 parameter_types! {
-    pub const BasicDeposit: Balance =      100 * REEF;
-    pub const FieldDeposit: Balance =        1 * REEF;
-    pub const SubAccountDeposit: Balance =  20 * REEF;
+    pub const BasicDeposit: Balance =      100 * OVR;
+    pub const FieldDeposit: Balance =        1 * OVR;
+    pub const SubAccountDeposit: Balance =  20 * OVR;
     pub const MaxSubAccounts: u32 = 100;
     pub const MaxAdditionalFields: u32 = 100;
     pub const MaxRegistrars: u32 = 20;
@@ -474,7 +474,7 @@ impl pallet_identity::Config for Runtime {
 }
 
 parameter_types! {
-    pub const IndexDeposit: Balance = 1 * REEF;
+    pub const IndexDeposit: Balance = 1 * OVR;
 }
 
 impl pallet_indices::Config for Runtime {
@@ -513,15 +513,15 @@ impl orml_tokens::Config for Runtime {
 }
 
 parameter_types! {
-    pub const GetNativeCurrencyId: CurrencyId = CurrencyId::Token(TokenSymbol::REEF);
-    pub const GetStableCurrencyId: CurrencyId = CurrencyId::Token(TokenSymbol::RUSD);
+    pub const GetNativeCurrencyId: CurrencyId = CurrencyId::Token(TokenSymbol::OVR);
+    pub const GetStableCurrencyId: CurrencyId = CurrencyId::Token(TokenSymbol::OUSD);
     // All currency types except for native currency, Sort by fee charge order
     pub AllNonNativeCurrencyIds: Vec<CurrencyId> = vec![];
 
 }
 
 parameter_types! {
-    pub const TransactionByteFee: Balance = 10 * MILLI_REEF;
+    pub const TransactionByteFee: Balance = 10 * MILLI_OVR;
     pub const TargetBlockFullness: Perquintill = Perquintill::from_percent(25);
     pub AdjustmentVariable: Multiplier = Multiplier::saturating_from_rational(1, 100_000);
     pub MinimumMultiplier:  Multiplier = Multiplier::saturating_from_rational(1, 1_000_000_000 as u128);
@@ -572,13 +572,13 @@ parameter_types! {
     //In [3]: random.randint(1000, 100_000)
     //Out[3]: 13939
     pub const ChainId: u64 = 13939;
-    // 10 REEF minimum storage deposit
+    // 10 OVR minimum storage deposit
     pub const NewContractExtraBytes: u32 = 10_000;
-    pub const StorageDepositPerByte: Balance = 1 * MILLI_REEF;
+    pub const StorageDepositPerByte: Balance = 1 * MILLI_OVR;
     pub const MaxCodeSize: u32 = 60 * 1024;
     pub NetworkContractSource: H160 = H160::from_low_u64_be(0);
-    pub const DeveloperDeposit: Balance = 1_000 * REEF;
-    pub const DeploymentFee: Balance    = 100 * REEF;
+    pub const DeveloperDeposit: Balance = 1_000 * OVR;
+    pub const DeploymentFee: Balance    = 100 * OVR;
 }
 
 pub type MultiCurrencyPrecompile =
@@ -630,10 +630,10 @@ impl module_evm_bridge::Config for Runtime {
 }
 
 parameter_types! {
-    // note: if we add other native tokens (RUSD) we have to set native
+    // note: if we add other native tokens (OUSD) we have to set native
     // existential deposit to 0 or check for other tokens on account pruning
-    pub const NativeTokenExistentialDeposit: Balance =       1 * REEF;
-    pub const MaxNativeTokenExistentialDeposit: Balance = 1000 * REEF;
+    pub const NativeTokenExistentialDeposit: Balance =       1 * OVR;
+    pub const MaxNativeTokenExistentialDeposit: Balance = 1000 * OVR;
     pub const MaxLocks: u32 = 50;
     pub const MaxReserves: u32 = 50;
 }
@@ -707,9 +707,9 @@ parameter_types! {
 
     pub const NominatorAPY: Perbill =     Perbill::from_percent(10);
     pub const CouncilInflation: Perbill = Perbill::from_percent(1);
-    pub const CandidacyDeposit: Balance =   1_000_000 * primitives::currency::REEF;
-    pub const MinLockAmount: Balance =        100_000 * primitives::currency::REEF;
-    pub const TotalLockedCap: Balance = 2_000_000_000 * primitives::currency::REEF;
+    pub const CandidacyDeposit: Balance =   1_000_000 * primitives::currency::OVR;
+    pub const MinLockAmount: Balance =        100_000 * primitives::currency::OVR;
+    pub const TotalLockedCap: Balance = 2_000_000_000 * primitives::currency::OVR;
 }
 
 impl pallet_collective::Config<TechCouncilInstance> for Runtime {

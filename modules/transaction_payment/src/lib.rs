@@ -201,16 +201,16 @@ pub mod module {
 
     #[pallet::config]
     pub trait Config: frame_system::Config {
-        /// All non-native currency ids in Reef.
+        /// All non-native currency ids in Ovr.
         #[pallet::constant]
         type AllNonNativeCurrencyIds: Get<Vec<CurrencyId>>;
 
         /// Native currency id, the actual received currency type as fee for
-        /// treasury. Should be REEF
+        /// treasury. Should be OVR
         #[pallet::constant]
         type NativeCurrencyId: Get<CurrencyId>;
 
-        /// Stable currency id, should be RUSD
+        /// Stable currency id, should be OUSD
         #[pallet::constant]
         type StableCurrencyId: Get<CurrencyId>;
 

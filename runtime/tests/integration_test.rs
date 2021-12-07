@@ -6,7 +6,7 @@ use frame_support::{
     traits::{GenesisBuild, OnFinalize, OnInitialize},
 };
 use module_support::Price;
-use reef_runtime::{
+use ovr_runtime::{
     get_all_module_accounts, AccountId, AuthoritysOriginId, Balance, Balances, Call, CurrencyId, Event, EvmAccounts,
     GetNativeCurrencyId, NativeTokenExistentialDeposit, Origin, Perbill, Runtime, System, TokenSymbol, EVM,
 };
@@ -161,7 +161,7 @@ fn test_authority_module() {
     ExtBuilder::default()
         .balances(vec![(
             AccountId::from(ALICE),
-            CurrencyId::Token(TokenSymbol::RUSD),
+            CurrencyId::Token(TokenSymbol::OUSD),
             amount(1000),
         )])
         .build()
@@ -193,7 +193,7 @@ fn test_authority_module() {
             // // DSWF transfer
             // let transfer_call =
             // Call::Currencies(module_currencies::Call::transfer( 	AccountId::
-            // from(BOB).into(), 	CurrencyId::Token(TokenSymbol::RUSD),
+            // from(BOB).into(), 	CurrencyId::Token(TokenSymbol::OUSD),
             // 	amount(500),
             // ));
             // let dswf_call =
@@ -230,13 +230,13 @@ fn test_authority_module() {
             // run_to_block(2);
             // assert_eq!(
             // 	Currencies::free_balance(
-            // 		CurrencyId::Token(TokenSymbol::RUSD),
+            // 		CurrencyId::Token(TokenSymbol::OUSD),
             // 		&DSWFModuleId::get().into_account()
             // 	),
             // 	amount(500)
             // );
             // assert_eq!(
-            // 	Currencies::free_balance(CurrencyId::Token(TokenSymbol::RUSD),
+            // 	Currencies::free_balance(CurrencyId::Token(TokenSymbol::OUSD),
             // &AccountId::from(BOB)), 	amount(500)
             // );
             //
@@ -395,7 +395,7 @@ fn test_evm_accounts_module() {
     ExtBuilder::default()
         .balances(vec![(
             bob_account_id(),
-            CurrencyId::Token(TokenSymbol::REEF),
+            CurrencyId::Token(TokenSymbol::OVR),
             amount(1000),
         )])
         .build()
@@ -440,19 +440,19 @@ fn test_evm_module() {
         .balances(vec![
             (
                 alice_account_id(),
-                CurrencyId::Token(TokenSymbol::REEF),
-                amount(1 * MILLI_REEF),
+                CurrencyId::Token(TokenSymbol::OVR),
+                amount(1 * MILLI_OVR),
             ),
             (
                 bob_account_id(),
-                CurrencyId::Token(TokenSymbol::REEF),
-                amount(1 * MILLI_REEF),
+                CurrencyId::Token(TokenSymbol::OVR),
+                amount(1 * MILLI_OVR),
             ),
         ])
         .build()
         .execute_with(|| {
-            assert_eq!(Balances::free_balance(alice_account_id()), amount(1 * MILLI_REEF));
-            assert_eq!(Balances::free_balance(bob_account_id()), amount(1 * MILLI_REEF));
+            assert_eq!(Balances::free_balance(alice_account_id()), amount(1 * MILLI_OVR));
+            assert_eq!(Balances::free_balance(bob_account_id()), amount(1 * MILLI_OVR));
 
             let _alice_address = EvmAccounts::eth_address(&alice());
             let bob_address = EvmAccounts::eth_address(&bob());
@@ -474,13 +474,13 @@ fn test_evm_module() {
                 Balances::free_balance(alice_account_id()),
                 999999999999989633000000000000000
             );
-            assert_eq!(Balances::free_balance(bob_account_id()), amount(1 * MILLI_REEF));
+            assert_eq!(Balances::free_balance(bob_account_id()), amount(1 * MILLI_OVR));
             let to = EvmAccounts::eth_address(&alice());
             assert_ok!(Currencies::transfer(
                 Origin::signed(bob_account_id()),
                 MultiAddress::Address20(to.0),
-                CurrencyId::Token(TokenSymbol::REEF),
-                amount(10 * MICRO_REEF)
+                CurrencyId::Token(TokenSymbol::OVR),
+                amount(10 * MICRO_OVR)
             ));
             assert_eq!(
                 Balances::free_balance(alice_account_id()),
@@ -488,7 +488,7 @@ fn test_evm_module() {
             );
             assert_eq!(
                 Balances::free_balance(bob_account_id()),
-                amount(1 * MILLI_REEF) - amount(10 * MICRO_REEF)
+                amount(1 * MILLI_OVR) - amount(10 * MICRO_OVR)
             );
         });
 }
@@ -500,19 +500,19 @@ fn test_evm_module() {
         .balances(vec![
             (
                 alice_account_id(),
-                CurrencyId::Token(TokenSymbol::REEF),
-                amount(1 * MILLI_REEF),
+                CurrencyId::Token(TokenSymbol::OVR),
+                amount(1 * MILLI_OVR),
             ),
             (
                 bob_account_id(),
-                CurrencyId::Token(TokenSymbol::REEF),
-                amount(1 * MILLI_REEF),
+                CurrencyId::Token(TokenSymbol::OVR),
+                amount(1 * MILLI_OVR),
             ),
         ])
         .build()
         .execute_with(|| {
-            assert_eq!(Balances::free_balance(alice_account_id()), amount(1 * MILLI_REEF));
-            assert_eq!(Balances::free_balance(bob_account_id()), amount(1 * MILLI_REEF));
+            assert_eq!(Balances::free_balance(alice_account_id()), amount(1 * MILLI_OVR));
+            assert_eq!(Balances::free_balance(bob_account_id()), amount(1 * MILLI_OVR));
 
             use std::fs::{self, File};
             use std::io::Read;

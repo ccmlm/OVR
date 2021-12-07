@@ -1,9 +1,9 @@
 {
-  "name": "Reef Testnet",
-  "id": "reef_testnet",
+  "name": "Ovr Testnet",
+  "id": "ovr_testnet",
   "chainType": "Live",
   "bootNodes": [
-    "/dns/bootnode-t1.reefscan.com/tcp/30334/p2p/12D3KooWKmFtS7BFtkkKWrP5ZcCpPFokmST2JFXFSsVBNeW5SXWg"
+    "/dns/bootnode-t1.ovrscan.com/tcp/30334/p2p/12D3KooWKmFtS7BFtkkKWrP5ZcCpPFokmST2JFXFSsVBNeW5SXWg"
   ],
   "telemetryEndpoints": [
     [
@@ -11,11 +11,11 @@
       0
     ]
   ],
-  "protocolId": "reef_testnet",
+  "protocolId": "ovr_testnet",
   "properties": {
     "ss58format": 42,
     "tokenDecimals": 18,
-    "tokenSymbol": "REEF"
+    "tokenSymbol": "OVR"
   },
   "forkBlocks": null,
   "badBlocks": null,

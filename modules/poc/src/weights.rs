@@ -6,7 +6,7 @@
 //! CACHE: 128
 
 // Executed Command:
-// ./target/release/reef-node
+// ./target/release/ovrd
 // benchmark
 // --chain=dev
 // --steps=50

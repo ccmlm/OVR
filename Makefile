@@ -24,15 +24,15 @@ build:
 
 .PHONY: wasm
 wasm:
-	cargo build -p reef-runtime --features with-ethereum-compatibility --release
+	cargo build -p ovr-runtime --features with-ethereum-compatibility --release
 
 .PHONY: genesis
 genesis:
 	make release
-	./target/release/reef-node build-spec --chain testnet-new > assets/chain_spec_testnet.json
-	./target/release/reef-node build-spec --chain mainnet-new > assets/chain_spec_mainnet.json
-	./target/release/reef-node build-spec --chain testnet-new --raw > assets/chain_spec_testnet_raw.json
-	./target/release/reef-node build-spec --chain mainnet-new --raw > assets/chain_spec_mainnet_raw.json
+	./target/release/ovrd build-spec --chain testnet-new > assets/chain_spec_testnet.json
+	./target/release/ovrd build-spec --chain mainnet-new > assets/chain_spec_mainnet.json
+	./target/release/ovrd build-spec --chain testnet-new --raw > assets/chain_spec_testnet_raw.json
+	./target/release/ovrd build-spec --chain mainnet-new --raw > assets/chain_spec_mainnet_raw.json
 
 .PHONY: check
 check:
@@ -53,7 +53,7 @@ test:
 
 .PHONY: debug
 debug:
-	cargo build && RUST_LOG=debug RUST_BACKTRACE=1 rust-gdb --args target/debug/reef-node --dev --tmp -lruntime=debug
+	cargo build && RUST_LOG=debug RUST_BACKTRACE=1 rust-gdb --args target/debug/ovrd --dev --tmp -lruntime=debug
 
 .PHONY: run
 run:
@@ -87,8 +87,8 @@ fork:
 ifeq (,$(wildcard fork/data))
 	mkdir fork/data
 endif
-	cp target/release/reef-node fork/data/binary
-	cp target/release/wbuild/reef-runtime/reef_runtime.compact.wasm fork/data/runtime.wasm
+	cp target/release/ovrd fork/data/binary
+	cp target/release/wbuild/ovr-runtime/ovr_runtime.compact.wasm fork/data/runtime.wasm
 	cp assets/types.json fork/data/schema.json
 	cp assets/chain_spec_$(chain)_raw.json fork/data/genesis.json
 	cd fork && npm start && cd ..

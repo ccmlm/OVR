@@ -1,8 +1,8 @@
-use reef_runtime::{
+use ovr_runtime::{
     get_all_module_accounts, opaque::SessionKeys, AccountId, AuthorityDiscoveryConfig, AuthorityDiscoveryId,
     BabeConfig, BalancesConfig, CurrencyId, EVMConfig, GenesisConfig, ImOnlineId, IndicesConfig,
     MaxNativeTokenExistentialDeposit, SessionConfig, StakerStatus, StakingConfig, SudoConfig, SystemConfig,
-    TokenSymbol, TokensConfig, REEF, WASM_BINARY,
+    TokenSymbol, TokensConfig, OVR, WASM_BINARY,
 };
 use sc_service::{ChainType, Properties};
 use sc_telemetry::TelemetryEndpoints;
@@ -19,8 +19,8 @@ use serde::{Deserialize, Serialize};
 use hex_literal::hex;
 use sp_core::{bytes::from_hex, crypto::UncheckedInto};
 
-use reef_primitives::{AccountPublic, Balance, Nonce};
-use reef_runtime::BABE_GENESIS_EPOCH_CONFIG;
+use ovr_primitives::{AccountPublic, Balance, Nonce};
+use ovr_runtime::BABE_GENESIS_EPOCH_CONFIG;
 
 // The URL for the telemetry server.
 const TELEMETRY_URL: &str = "wss://telemetry.polkadot.io/submit/";
@@ -33,9 +33,9 @@ const TELEMETRY_URL: &str = "wss://telemetry.polkadot.io/submit/";
 #[serde(rename_all = "camelCase")]
 pub struct Extensions {
     /// Block numbers with known hashes.
-    pub fork_blocks: sc_client_api::ForkBlocks<reef_primitives::Block>,
+    pub fork_blocks: sc_client_api::ForkBlocks<ovr_primitives::Block>,
     /// Known bad block hashes.
-    pub bad_blocks: sc_client_api::BadBlocks<reef_primitives::Block>,
+    pub bad_blocks: sc_client_api::BadBlocks<ovr_primitives::Block>,
 }
 
 /// Specialized `ChainSpec`. This is a specialization of the general Substrate
@@ -123,7 +123,7 @@ pub fn development_config() -> Result<ChainSpec, String> {
         // Protocol ID
         None,
         // Properties
-        Some(reef_properties()),
+        Some(ovr_properties()),
         // Extensions
         Default::default(),
     ))
@@ -170,9 +170,9 @@ pub fn local_testnet_config() -> Result<ChainSpec, String> {
         // TelemetryEndpoints::new(vec![(TELEMETRY_URL.into(), 0)]).ok(),
         None,
         // Protocol ID
-        Some("reef_local_testnet"),
+        Some("ovr_local_testnet"),
         // Properties
-        Some(reef_properties()),
+        Some(ovr_properties()),
         // Extensions
         Default::default(),
     ))
@@ -182,9 +182,9 @@ pub fn public_testnet_config() -> Result<ChainSpec, String> {
     let wasm_binary = WASM_BINARY.ok_or_else(|| "WASM binary not available".to_string())?;
     Ok(ChainSpec::from_genesis(
         // Name
-        "Reef Testnet",
+        "Ovr Testnet",
         // ID
-        "reef_testnet",
+        "ovr_testnet",
         ChainType::Live,
         move || {
             testnet_genesis(
@@ -234,16 +234,16 @@ pub fn public_testnet_config() -> Result<ChainSpec, String> {
         },
         // Bootnodes
         vec![
-            "/dns/bootnode-t1.reefscan.com/tcp/30334/p2p/12D3KooWKmFtS7BFtkkKWrP5ZcCpPFokmST2JFXFSsVBNeW5SXWg"
+            "/dns/bootnode-t1.ovrscan.com/tcp/30334/p2p/12D3KooWKmFtS7BFtkkKWrP5ZcCpPFokmST2JFXFSsVBNeW5SXWg"
                 .parse()
                 .unwrap(),
         ],
         // Telemetry
         TelemetryEndpoints::new(vec![(TELEMETRY_URL.into(), 0)]).ok(),
         // Protocol ID
-        Some("reef_testnet"),
+        Some("ovr_testnet"),
         // Properties
-        Some(reef_properties()),
+        Some(ovr_properties()),
         // Extensions
         Default::default(),
     ))
@@ -261,9 +261,9 @@ pub fn mainnet_config() -> Result<ChainSpec, String> {
     let wasm_binary = WASM_BINARY.ok_or_else(|| "WASM binary not available".to_string())?;
     Ok(ChainSpec::from_genesis(
         // Name
-        "Reef Mainnet",
+        "Ovr Mainnet",
         // ID
-        "reef_mainnet",
+        "ovr_mainnet",
         ChainType::Live,
         move || {
             mainnet_genesis(
@@ -355,22 +355,22 @@ pub fn mainnet_config() -> Result<ChainSpec, String> {
         },
         // Bootnodes
         vec![
-            "/dns/bootnode.reefscan.com/tcp/30333/p2p/12D3KooWFHSc9cUcyNtavUkLg4VBAeBnYNgy713BnovUa9WNY5pp"
+            "/dns/bootnode.ovrscan.com/tcp/30333/p2p/12D3KooWFHSc9cUcyNtavUkLg4VBAeBnYNgy713BnovUa9WNY5pp"
                 .parse()
                 .unwrap(),
-            "/dns/bootnode.reef.finance/tcp/30333/p2p/12D3KooWAQqcXvcvt4eVEgogpDLAdGWgR5bY1drew44We6FfJAYq"
+            "/dns/bootnode.ovr.finance/tcp/30333/p2p/12D3KooWAQqcXvcvt4eVEgogpDLAdGWgR5bY1drew44We6FfJAYq"
                 .parse()
                 .unwrap(),
-            "/dns/bootnode.reef-chain.com/tcp/30333/p2p/12D3KooWCT7rnUmEK7anTp7svwr4GTs6k3XXnSjmgTcNvdzWzgWU"
+            "/dns/bootnode.ovr-chain.com/tcp/30333/p2p/12D3KooWCT7rnUmEK7anTp7svwr4GTs6k3XXnSjmgTcNvdzWzgWU"
                 .parse()
                 .unwrap(),
         ],
         // Telemetry
         TelemetryEndpoints::new(vec![(TELEMETRY_URL.into(), 0)]).ok(),
         // Protocol ID
-        Some("reef_mainnet"),
+        Some("ovr_mainnet"),
         // Properties
-        Some(reef_properties()),
+        Some(ovr_properties()),
         // Extensions
         Default::default(),
     ))
@@ -391,8 +391,8 @@ fn testnet_genesis(
 ) -> GenesisConfig {
     let evm_genesis_accounts = evm_genesis();
 
-    const INITIAL_BALANCE: u128 = 100_000_000 * REEF;
-    const INITIAL_STAKING: u128 = 1_000_000 * REEF;
+    const INITIAL_BALANCE: u128 = 100_000_000 * OVR;
+    const INITIAL_STAKING: u128 = 1_000_000 * OVR;
     let existential_deposit = MaxNativeTokenExistentialDeposit::get();
 
     let balances = initial_authorities
@@ -466,7 +466,7 @@ fn testnet_genesis(
         tokens: TokensConfig {
             balances: endowed_accounts
                 .iter()
-                .flat_map(|x| vec![(x.clone(), CurrencyId::Token(TokenSymbol::RUSD), INITIAL_BALANCE)])
+                .flat_map(|x| vec![(x.clone(), CurrencyId::Token(TokenSymbol::OUSD), INITIAL_BALANCE)])
                 .collect(),
         },
         evm: EVMConfig {
@@ -492,13 +492,13 @@ fn mainnet_genesis(
 ) -> GenesisConfig {
     let evm_genesis_accounts = evm_genesis();
 
-    const INITIAL_STAKING: u128 = 1_000_000 * REEF;
+    const INITIAL_STAKING: u128 = 1_000_000 * OVR;
     let existential_deposit = MaxNativeTokenExistentialDeposit::get();
 
     let balances = initial_authorities
         .iter()
         .map(|x| (x.0.clone(), INITIAL_STAKING * 2))
-        .chain(endowed_accounts.iter().cloned().map(|x| (x.0.clone(), x.1 * REEF)))
+        .chain(endowed_accounts.iter().cloned().map(|x| (x.0.clone(), x.1 * OVR)))
         .chain(
             get_all_module_accounts()
                 .iter()
@@ -573,11 +573,11 @@ fn mainnet_genesis(
 }
 
 /// Token
-pub fn reef_properties() -> Properties {
+pub fn ovr_properties() -> Properties {
     let mut p = Properties::new();
     p.insert("ss58format".into(), 42.into());
     p.insert("tokenDecimals".into(), 18.into());
-    p.insert("tokenSymbol".into(), "REEF".into());
+    p.insert("tokenSymbol".into(), "OVR".into());
     p
 }
 

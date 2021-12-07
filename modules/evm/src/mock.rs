@@ -95,7 +95,7 @@ impl orml_tokens::Config for Test {
 }
 
 parameter_types! {
-    pub const GetNativeCurrencyId: CurrencyId = CurrencyId::Token(TokenSymbol::REEF);
+    pub const GetNativeCurrencyId: CurrencyId = CurrencyId::Token(TokenSymbol::OVR);
 }
 
 impl orml_currencies::Config for Test {

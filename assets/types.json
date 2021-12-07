@@ -112,8 +112,8 @@
     "AuctionIdOf": "AuctionId",
     "TokenSymbol": {
         "_enum": {
-            "REEF": 0,
-            "RUSD": 1
+            "OVR": 0,
+            "OUSD": 1
         }
     },
     "CurrencyId": {

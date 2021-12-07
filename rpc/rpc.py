@@ -4,8 +4,8 @@ import json
 types = json.load(open("../assets/types.json", "r"))
 
 # url = "http://127.0.0.1:9933"
-url = "https://rpc-testnet.reefscan.com"
-# url = "https://rpc.reefscan.com"
+url = "https://rpc-testnet.ovrscan.com"
+# url = "https://rpc.ovrscan.com"
 
 s = SubstrateInterface(
     url=url,
@@ -28,7 +28,7 @@ s.query('Balances', 'TotalIssuance')
 ## current metadata
 s.get_runtime_metadata()
 
-## send 100 REEF from Alice -> Bob
+## send 100 OVR from Alice -> Bob
 from substrateinterface import Keypair
 alice = Keypair.create_from_uri('//Alice')
 bob = Keypair.create_from_uri('//Bob')
